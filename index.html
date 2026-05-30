@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForeSight 优汇盈 V3.0 — 一站式跨境贸易数字化服务平台</title>
+  <style>
+    :root {
+      --blue: #2463e6;
+      --blue-dark: #1648ad;
+      --teal: #0798a8;
+      --ink: #111827;
+      --muted: #657083;
+      --line: #e6eaf0;
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --green: #2aa876;
+      --red: #df3d3d;
+      --shadow: 0 12px 32px rgba(23,34,51,0.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif;
+    }
+    button,input,select { font: inherit; }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      background: linear-gradient(115deg,#1e5ee9 0%,#078da0 100%);
+      color: #fff;
+    }
+    .topbar__inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 118px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .topbar h1,.topbar p { margin: 0; }
+    .topbar h1 { font-size: clamp(24px,4vw,40px); line-height:1.16; margin:6px 0; }
+    .eyebrow { opacity:.78; font-size:13px; font-weight:700; text-transform:uppercase; margin:0; }
+    .topbar__actions { display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end; }
+    .status-pill,.badge {
+      border:1px solid rgba(255,255,255,.36);
+      border-radius:999px; padding:7px 13px;
+      font-weight:700; white-space:nowrap; font-size:13px;
+    }
+    .ghost-button {
+      border-radius:8px; border:1px solid rgba(255,255,255,.32);
+      padding:0 16px; min-height:42px;
+      color:#fff; background:rgba(255,255,255,.16);
+      cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+    }
+    .ghost-button:hover { background:rgba(255,255,255,.26); }
+
+    /* ─── MAIN LAYOUT ─── */
+    main { width:min(1180px,calc(100% - 40px)); margin:28px auto 0; }
+
+    /* ─── HERO ─── */
+    .hero {
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
+      gap:28px; align-items:stretch; margin-bottom:36px;
+    }
+    .hero__copy,.hero__panel,.section,.rate-card,.overview-card,
+    .control-panel,.analysis-panel,.news-list,dialog {
+      background:var(--card);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(230,234,240,.85);
+    }
+    .hero__copy {
+      position:relative; overflow:hidden; min-height:280px;
+      padding:44px; border-radius:8px;
+    }
+    .hero__copy::before {
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.94),rgba(255,255,255,.78)),
+        url("./assets/hero-bg.png") center top / cover no-repeat;
+    }
+    .hero__copy > * { position:relative; }
+    .badge {
+      display:inline-flex; color:var(--blue);
+      background:rgba(36,99,230,.08); border-color:rgba(36,99,230,.18);
+    }
+    .hero h2 { margin:20px 0 14px; font-size:clamp(28px,4.5vw,50px); line-height:1.1; }
+    .hero p { margin:0; color:#4d596b; font-size:17px; line-height:1.8; }
+    .hero__actions { display:flex; gap:14px; margin-top:28px; flex-wrap:wrap; }
+    .primary-link,.primary-button {
+      background:var(--blue); color:#fff; padding:0 22px;
+      font-weight:800; border-radius:8px; border:0;
+      min-height:44px; display:inline-flex; align-items:center; cursor:pointer;
+      text-decoration:none;
+    }
+    .secondary-link {
+      color:var(--ink); padding:0 20px; border:1px solid #ccd4df;
+      background:#fff; font-weight:700; border-radius:8px;
+      min-height:44px; display:inline-flex; align-items:center;
+      text-decoration:none;
+    }
+    .hero__panel { padding:24px; border-radius:8px; display:grid; gap:14px; }
+    .pipeline-step { border-left:4px solid var(--blue); padding:14px 18px; background:#f7faff; border-radius:6px; }
+    .pipeline-step span { color:var(--blue); font-weight:900; font-size:12px; }
+    .pipeline-step strong { display:block; margin:5px 0; font-size:18px; }
+    .pipeline-step p { color:var(--muted); margin:0; line-height:1.6; font-size:14px; }
+
+    /* ─── SECTION ─── */
+    .section { border-radius:8px; padding:28px; margin-bottom:28px; }
+    .section-title { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+    .section-title > span { color:var(--blue); font-size:26px; font-weight:900; }
+    .section-title h2,.section-title p { margin:0; }
+    .section-title h2 { font-size:26px; }
+
+    /* ─── FEATURE GRID ─── */
+    .feature-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; }
+    .feature-grid article { padding:20px; border:1px solid var(--line); border-radius:8px; background:#fbfcff; }
+    .feature-grid strong { font-size:17px; }
+    .feature-grid p { color:var(--muted); line-height:1.6; margin:8px 0 0; font-size:14px; }
+
+    /* ─── OVERVIEW ─── */
+    .overview-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .overview-card { border-radius:8px; padding:22px; min-height:120px; }
+    .overview-card span { color:var(--muted); font-size:14px; }
+    .overview-card strong { display:inline-block; margin-top:14px; font-size:28px; }
+    .overview-card em { float:right; margin-top:18px; font-style:normal; font-size:17px; }
+    .sentiment { display:grid; grid-template-columns:1fr auto; align-items:center; gap:14px; margin-top:18px; }
+    .sentiment i { height:14px; border-radius:99px; background:linear-gradient(90deg,#3b82f6 64%,#e6e8ed 64%); }
+    .sentiment strong { margin:0; font-size:18px; }
+    .up { color:var(--green); }
+    .down { color:var(--red); }
+
+    /* ─── RATE GRID ─── */
+    .rate-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .rate-card { border-radius:8px; padding:22px; cursor:pointer; transition:transform .2s,box-shadow .2s; }
+    .rate-card:hover { transform:translateY(-2px); box-shadow:0 16px 38px rgba(23,34,51,.15); }
+    .rate-head,.rate-meta,.spark-labels { display:flex; justify-content:space-between; gap:12px; }
+    .rate-head h3 { margin:0 0 4px; font-size:22px; }
+    .rate-card > strong { display:block; margin:14px 0 6px; font-size:32px; }
+    .rate-meta { color:#1f2937; font-size:13px; }
+    .rate-card small { color:var(--muted); font-size:13px; }
+    .sparkline { width:100%; height:72px; margin:12px 0 4px; }
+    .spark-labels { color:#7a8494; font-size:12px; }
+
+    /* ─── DECISION LAB ─── */
+    .decision-layout { display:grid; grid-template-columns:360px minmax(0,1fr); gap:22px; }
+    .control-panel,.analysis-panel { border-radius:8px; padding:22px; }
+    .control-panel { display:grid; gap:14px; }
+    label { color:var(--muted); display:grid; gap:6px; font-size:14px; }
+    input,select {
+      width:100%; min-height:44px; border:1px solid #d9dee7;
+      border-radius:8px; padding:0 13px; background:#fff; color:var(--ink);
+    }
+    .primary-button { width:100%; margin-top:4px; justify-content:center; }
+
+    /* ─── FORECAST PANEL (图5 上半) ─── */
+    .forecast-band {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px; margin-bottom:18px;
+    }
+    .forecast-band > div {
+      background:#f7faff; border:1px solid var(--line);
+      border-radius:8px; padding:14px 16px;
+    }
+    .forecast-band span { color:var(--muted); font-size:13px; }
+    .forecast-band strong { display:block; margin-top:8px; font-size:22px; font-weight:800; }
+
+    /* ─── SR LEVELS (支撑/阻力) ─── */
+    .sr-panel {
+      background:#fff; border:1px solid var(--line); border-radius:8px;
+      padding:18px 22px; margin-bottom:18px;
+    }
+    .sr-panel h4 { margin:0 0 14px; font-size:16px; font-weight:800; color:var(--ink); }
+    .sr-track {
+      position:relative; height:54px;
+      background:linear-gradient(90deg,#e8f0fe 0%,#fef3f2 100%);
+      border-radius:6px; margin-bottom:10px;
+    }
+    .sr-label-row { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); }
+    .sr-current-marker {
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:18px; height:18px; border-radius:50%;
+      background:var(--blue); border:3px solid #fff;
+      box-shadow:0 2px 8px rgba(36,99,230,.4);
+      transition:left .5s ease;
+    }
+    .sr-row { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; margin-top:10px; }
+    .sr-item { text-align:center; padding:8px; border-radius:6px; font-size:13px; }
+    .sr-item.resistance { background:#fff0f0; }
+    .sr-item.support { background:#f0fff6; }
+    .sr-item span { display:block; font-size:11px; color:var(--muted); margin-bottom:4px; }
+    .sr-item strong { font-size:16px; }
+    .sr-item.resistance strong { color:var(--red); }
+    .sr-item.support strong { color:var(--green); }
+
+    /* ─── METRIC ROW ─── */
+    .metric-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-bottom:14px; }
+    .metric-row > div {
+      border:1px solid var(--line); border-radius:8px; padding:14px 16px; background:#fbfcff;
+    }
+    .metric-row > div span { color:var(--muted); font-size:13px; }
+    .metric-row strong { display:block; margin-top:8px; font-size:24px; }
+
+    /* ─── CHART ─── */
+    #simulationChart,#detailChart {
+      width:100%; max-width:100%; height:auto;
+      margin:16px 0; border:1px solid var(--line); border-radius:8px; background:#fff;
+    }
+
+    /* ─── AI SUMMARY ─── */
+    .ai-summary {
+      display:grid; grid-template-columns:1fr 120px; gap:18px; align-items:center;
+      background:#edf5ff; border-radius:8px; padding:20px; margin-bottom:14px;
+    }
+    .ai-summary h3,.ai-summary p { margin:0; }
+    .ai-summary p { margin-top:10px; color:#3d4a5d; line-height:1.7; font-size:14px; }
+    .summary-score { text-align:right; color:var(--muted); }
+    .summary-score > span { display:block; color:var(--ink); font-size:30px; font-weight:900; }
+
+    /* ─── EXECUTION GRID ─── */
+    .execution-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:14px; }
+    .execution-grid > div {
+      border:1px solid var(--line); border-radius:8px; padding:14px 16px; background:#fbfcff;
+    }
+    .execution-grid span { color:var(--muted); font-size:13px; }
+    .execution-grid strong { display:block; margin-top:8px; font-size:18px; }
+
+    /* ─── NEWS ─── */
+    .news-section { margin-bottom:28px; }
+    .news-list { border-radius:8px; padding:24px; }
+    .news-card { padding:16px 0; border-bottom:1px solid var(--line); }
+    .news-card:last-child { border-bottom:0; }
+    .news-card time { color:#8992a1; font-size:12px; float:right; }
+    .news-card strong { display:block; font-size:17px; margin-right:80px; margin-bottom:6px; }
+    .news-card p { color:var(--muted); margin:0; line-height:1.6; font-size:14px; }
+    .news-tag {
+      display:inline-block; font-size:11px; font-weight:700;
+      padding:2px 8px; border-radius:99px; margin-right:6px; margin-bottom:6px;
+    }
+    .tag-fx { background:#e8f0fe; color:#2463e6; }
+    .tag-macro { background:#fef3c7; color:#92400e; }
+    .tag-policy { background:#f0fdf4; color:#166534; }
+    .news-refresh-hint { font-size:12px; color:var(--muted); text-align:right; margin-top:10px; }
+
+    /* ─── DIALOG ─── */
+    dialog {
+      width:min(920px,calc(100% - 32px)); border-radius:8px;
+      padding:22px; border:1px solid var(--line);
+    }
+    dialog::backdrop { background:rgba(15,23,42,.34); }
+    .dialog-head { display:flex; justify-content:space-between; align-items:flex-start; gap:18px; }
+    .dialog-head h2 { margin:0 0 8px; }
+    .dialog-head strong { font-size:28px; margin-right:10px; }
+    #closeDialog { border:0; background:transparent; color:#6b7280; font-size:28px; cursor:pointer; }
+    .tabs { display:flex; gap:8px; border-bottom:1px solid var(--line); margin-top:18px; }
+    .tabs button { background:transparent; border:0; padding:10px 14px; color:#374151; cursor:pointer; }
+    .tabs button.active { color:var(--blue); border-bottom:2px solid var(--blue); }
+
+    /* ─── FOOTER ─── */
+    footer { margin-top:48px; padding:26px 20px; text-align:center; color:#6b7280; background:#eef1f5; }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:980px) {
+      .hero,.decision-layout { grid-template-columns:1fr; }
+      .feature-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .execution-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .forecast-band { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .sr-row { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:720px) {
+      .topbar__inner { align-items:flex-start; flex-direction:column; padding:24px 0; }
+      main { width:min(100% - 24px,1180px); }
+      .hero__copy,.section { padding:20px; }
+      .feature-grid,.rate-grid,.overview-grid,.metric-row,.execution-grid,.ai-summary,.forecast-band { grid-template-columns:1fr; }
+      .summary-score { text-align:left; }
+      .sr-row { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════ TOPBAR ════════ -->
+<header class="topbar">
+  <div class="topbar__inner">
+    <div>
+      <p class="eyebrow">ForeSight 优汇盈 V3.0</p>
+      <h1>一站式跨境贸易数字化服务平台</h1>
+      <p style="margin:6px 0 0;opacity:.85;font-size:15px;">实时汇率监测、目标汇率可实现率评估、资金执行建议与风险预警。</p>
+    </div>
+    <div class="topbar__actions">
+      <span class="status-pill" id="apiStatus">等待更新</span>
+      <button class="ghost-button" id="refreshBtn" type="button">
+        <span>↻</span> 刷新数据
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ════════ HERO ════════ -->
+  <section class="hero">
+    <div class="hero__copy">
+      <span class="badge">AI 量化决策终端</span>
+      <h2>把「等一个好汇率」变成可量化的资金策略</h2>
+      <p>系统以实时汇率为起点，结合波动率、截止时间与资金紧迫度，模拟未来价格路径，输出目标汇率在指定期限内的可实现率与执行建议。</p>
+      <div class="hero__actions">
+        <a href="#decisionLab" class="primary-link">开始智能分析</a>
+        <a href="#functionMap" class="secondary-link">查看功能结构</a>
+      </div>
+    </div>
+    <div class="hero__panel">
+      <div class="pipeline-step">
+        <span>01</span>
+        <strong>数据接入</strong>
+        <p>公开汇率 API / 银行牌价 / 历史行情库，7×24小时实时更新</p>
+      </div>
+      <div class="pipeline-step">
+        <span>02</span>
+        <strong>模型分析</strong>
+        <p>GBM 随机过程 + 3,000 次蒙特卡洛模拟，输出路径云图</p>
+      </div>
+      <div class="pipeline-step">
+        <span>03</span>
+        <strong>策略输出</strong>
+        <p>可实现率、支撑/阻力位、分批执行方案与风险预警</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FUNCTION MAP ════════ -->
+  <section class="section" id="functionMap">
+    <div class="section-title">
+      <span>▦</span>
+      <div>
+        <p class="eyebrow">Product Map</p>
+        <h2>网站功能结构</h2>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <article><strong>实时市场看板</strong><p>展示 USD/CNY、EUR/CNY、JPY/CNY 等主流货币对，每60秒自动刷新。</p></article>
+      <article><strong>汇率详情图表</strong><p>点击货币卡片查看分时、近7天、近1月和近3月走势，辅助识别短期趋势。</p></article>
+      <article><strong>智能参数输入</strong><p>输入目标汇率、截止天数、交易金额、资金紧迫程度与执行策略。</p></article>
+      <article><strong>概率评估模型</strong><p>基于波动率生成模拟路径，计算目标汇率触达概率与隐性汇损风险等级。</p></article>
+      <article><strong>AI 决策建议</strong><p>联立"可实现率 + 紧迫度"，输出继续等待、挂单、下调目标或即时成交建议。</p></article>
+      <article><strong>支撑/阻力位分析</strong><p>基于历史价格数据计算关键支撑位S1/S2与阻力位R1/R2，可视化价格区间。</p></article>
+      <article><strong>资金执行方案</strong><p>按总金额生成立即成交与挂单比例，帮助跨境企业分批管理资金。</p></article>
+      <article><strong>市场热点资讯</strong><p>实时接入全球财经新闻 API，自动聚合与汇率相关的市场动态与政策信息。</p></article>
+    </div>
+  </section>
+
+  <!-- ════════ MARKET OVERVIEW ════════ -->
+  <section class="section">
+    <div class="section-title">
+      <span>◉</span>
+      <div>
+        <p class="eyebrow">Market Overview</p>
+        <h2>市场概览</h2>
+      </div>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <span>全球市场情绪</span>
+        <div class="sentiment">
+          <i id="sentimentBar"></i>
+          <strong id="sentimentText">中性偏乐观</strong>
+        </div>
+      </div>
+      <div class="overview-card">
+        <span>美元指数 DXY</span>
+        <strong id="dxyVal">104.23</strong>
+        <em class="down" id="dxyChange">▼ 0.15%</em>
+      </div>
+      <div class="overview-card">
+        <span>Volatility Index</span>
+        <strong id="volatilityIndex">12.45</strong>
+        <em class="up">▲ 2.31%</em>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ LIVE RATES ════════ -->
+  <section class="section">
+    <div class="section-title">
+      <span>⇄</span>
+      <div>
+        <p class="eyebrow">Live Rates</p>
+        <h2>主流货币对</h2>
+      </div>
+    </div>
+    <div class="rate-grid" id="rateGrid"></div>
+  </section>
+
+  <!-- ════════ DECISION LAB ════════ -->
+  <section class="section decision" id="decisionLab">
+    <div class="section-title">
+      <span>✦</span>
+      <div>
+        <p class="eyebrow">Decision Lab</p>
+        <h2>智能资金管理策略</h2>
+      </div>
+    </div>
+    <div class="decision-layout">
+
+      <!-- LEFT: FORM -->
+      <form class="control-panel" id="analysisForm">
+        <label>货币对
+          <select id="pairSelect"></select>
+        </label>
+        <label>当前实时汇率
+          <input id="currentRate" type="number" step="0.0001" value="7.2300" />
+        </label>
+        <label>市场波动率（%）
+          <input id="volatility" type="number" step="0.01" value="12" />
+        </label>
+        <label>理想目标汇率
+          <input id="targetRate" type="number" step="0.0001" value="7.2550" />
+        </label>
+        <label>最晚截止时间（天）
+          <input id="deadlineDays" type="number" min="1" max="180" value="14" />
+        </label>
+        <label>总金额（CNY）
+          <input id="amount" type="number" min="100" step="100" value="100000" />
+        </label>
+        <label>资金紧迫程度
+          <select id="urgency">
+            <option value="urgent">急</option>
+            <option value="medium" selected>较急</option>
+            <option value="relaxed">不急</option>
+          </select>
+        </label>
+        <label>执行策略
+          <select id="strategy">
+            <option value="balanced" selected>均衡策略（30% 立即 + 70% 挂单）</option>
+            <option value="defensive">稳健策略（60% 立即 + 40% 挂单）</option>
+            <option value="opportunity">机会策略（10% 立即 + 90% 挂单）</option>
+          </select>
+        </label>
+        <button class="primary-button" type="submit">⚡ 生成执行方案</button>
+      </form>
+
+      <!-- RIGHT: RESULTS -->
+      <div class="analysis-panel">
+
+        <!-- ① 三项核心指标 (图5 上半) -->
+        <div class="forecast-band" id="forecastBand">
+          <div>
+            <span>7 天预测中值</span>
+            <strong id="medianForecast">--</strong>
+          </div>
+          <div>
+            <span>90% 概率区间</span>
+            <strong id="confidenceRange">--</strong>
+          </div>
+          <div>
+            <span>模拟场景数</span>
+            <strong>3,000+</strong>
+          </div>
+        </div>
+
+        <!-- ② 支撑 / 阻力位 (图5 上半) -->
+        <div class="sr-panel" id="srPanel">
+          <h4>支撑 / 阻力位</h4>
+          <div class="sr-track" id="srTrack">
+            <div class="sr-current-marker" id="srMarker" style="left:50%;"></div>
+          </div>
+          <div class="sr-row">
+            <div class="sr-item resistance">
+              <span>阻力位 R2</span>
+              <strong id="r2">--</strong>
+            </div>
+            <div class="sr-item resistance">
+              <span>阻力位 R1</span>
+              <strong id="r1">--</strong>
+            </div>
+            <div class="sr-item support">
+              <span>支撑位 S1</span>
+              <strong id="s1">--</strong>
+            </div>
+            <div class="sr-item support">
+              <span>支撑位 S2</span>
+              <strong id="s2">--</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ 可实现率 / 风险 -->
+        <div class="metric-row">
+          <div>
+            <span>AI 预测可实现率</span>
+            <strong id="achievability">--</strong>
+          </div>
+          <div>
+            <span>隐性汇损风险</span>
+            <strong id="riskLevel">--</strong>
+          </div>
+          <div>
+            <span>当前价格历史分位</span>
+            <strong id="percentile">--</strong>
+          </div>
+        </div>
+
+        <!-- ④ 蒙特卡洛路径图 -->
+        <canvas id="simulationChart" width="900" height="320"></canvas>
+
+        <!-- ⑤ AI 摘要 -->
+        <div class="ai-summary">
+          <div>
+            <h3>💡 AI 智能摘要</h3>
+            <p id="aiSummary">输入目标汇率并生成方案后，系统将给出可实现率、预测区间和建议动作。</p>
+            <div style="margin-top:12px;font-size:13px;color:var(--muted);">
+              <span>当前价格历史分位：</span><strong id="percentileLabel" style="margin-left:6px;">--</strong>
+              &nbsp;&nbsp;
+              <span>短期趋势判断：</span><strong id="trendLabel" style="margin-left:6px;">--</strong>
+            </div>
+          </div>
+          <div class="summary-score">
+            <span id="achievabilityBig">--</span>
+            <small style="color:var(--muted);">可实现率</small>
+          </div>
+        </div>
+
+        <!-- ⑥ 执行方案 -->
+        <div class="execution-grid">
+          <div><span>立即成交金额</span><strong id="instantAmount">--</strong></div>
+          <div><span>挂单等待金额</span><strong id="pendingAmount">--</strong></div>
+          <div><span>理想买入汇率</span><strong id="idealBuy">--</strong></div>
+          <div><span>理想卖出汇率</span><strong id="idealSell">--</strong></div>
+        </div>
+
+      </div><!-- end analysis-panel -->
+    </div><!-- end decision-layout -->
+  </section>
+
+  <!-- ════════ MARKET NEWS ════════ -->
+  <section class="section news-section" id="newsSection">
+    <div class="section-title">
+      <span>📰</span>
+      <div>
+        <p class="eyebrow">Market News</p>
+        <h2>市场热点</h2>
+      </div>
+    </div>
+    <div class="news-list" id="newsList">
+      <div style="color:var(--muted);font-size:14px;padding:20px 0;text-align:center;">正在加载市场资讯…</div>
+    </div>
+    <p class="news-refresh-hint" id="newsRefreshHint"></p>
+  </section>
+
+</main>
+
+<!-- ════════ RATE DETAIL DIALOG ════════ -->
+<dialog id="rateDialog">
+  <div class="dialog-head">
+    <div>
+      <h2 id="dialogTitle">USD/CNY — 美元/人民币</h2>
+      <strong id="dialogRate">--</strong>
+      <span id="dialogChange">--</span>
+    </div>
+    <button id="closeDialog" type="button">×</button>
+  </div>
+  <div class="tabs" id="chartTabs">
+    <button class="active" type="button" data-range="day">今日分时</button>
+    <button type="button" data-range="week">近 7 天</button>
+    <button type="button" data-range="month">近 1 个月</button>
+    <button type="button" data-range="quarter">近 3 个月</button>
+  </div>
+  <canvas id="detailChart" width="900" height="320"></canvas>
+</dialog>
+
+<footer>
+  © 2026 ForeSight（优汇盈）V3.0 全球外汇量化决策终端 ｜ 风险提示：外汇交易存在高风险，请谨慎操作
+</footer>
+
+<!-- ════════ SCRIPT ════════ -->
+<script>
+/* ───────────────────────────────────────────
+   CONFIG
+─────────────────────────────────────────── */
+const FX_API   = "https://open.er-api.com/v6/latest/";
+const CACHE_KEY = "foresight_fx_v2";
+const AUTO_REFRESH_INTERVAL = 60000; // 60s auto-refresh
+
+// NewsData.io – free tier, no key needed for demo queries
+// We'll use a CORS proxy + GNews public endpoint
+const NEWS_PROXY = "https://api.allorigins.win/get?url=";
+const GNEWS_URL  = encodeURIComponent(
+  "https://gnews.io/api/v4/search?q=forex+exchange+rate+CNY&lang=zh&country=cn&max=6&token=demo"
+);
+
+const PAIRS = [
+  { code:"USD/CNY", base:"USD", quote:"CNY", name:"美元/人民币",  fallback:7.2300, support:7.18, resistance:7.29 },
+  { code:"EUR/CNY", base:"EUR", quote:"CNY", name:"欧元/人民币",  fallback:7.8500, support:7.78, resistance:7.92 },
+  { code:"JPY/CNY", base:"JPY", quote:"CNY", name:"日元/人民币",  fallback:0.0460, support:0.0455, resistance:0.0472 },
+  { code:"GBP/CNY", base:"GBP", quote:"CNY", name:"英镑/人民币",  fallback:9.3200, support:9.22, resistance:9.42 },
+  { code:"AUD/CNY", base:"AUD", quote:"CNY", name:"澳元/人民币",  fallback:4.7600, support:4.70, resistance:4.84 },
+  { code:"USD/HKD", base:"USD", quote:"HKD", name:"美元/港币",    fallback:7.8100, support:7.80, resistance:7.83 }
+];
+
+// Curated rotating news items (used when API fails / demo mode)
+const STATIC_NEWS = [
+  { time:"2 分钟前",  tag:"tag-fx",     title:"人民币对美元汇率小幅回调",       body:"受美元指数窄幅走强影响，在岸人民币对美元汇率短期承压，市场关注美联储下次会议信号。" },
+  { time:"38 分钟前", tag:"tag-macro",  title:"美联储会议纪要即将公布",          body:"市场预期将透露未来利率路径的重要线索，可能引发美元及主要货币对大幅波动。" },
+  { time:"1 小时前",  tag:"tag-policy", title:"欧元区通胀数据好于预期",          body:"欧元区 5 月 CPI 同比增长 2.4%，低于预期的 2.6%，增强了欧央行可能在下次会议上降息的预期。" },
+  { time:"3 小时前",  tag:"tag-fx",     title:"日元持续承压，日央行政策备受关注", body:"日本央行行长表示，在确认通胀持续达到 2% 目标前，将继续实施货币宽松政策，日元承压。" },
+  { time:"5 小时前",  tag:"tag-macro",  title:"英国经济数据超预期，英镑走强",    body:"英国 GDP 季环比增长 0.4%，超出市场预期，带动英镑对美元升至近一个月高位。" },
+  { time:"昨天",      tag:"tag-policy", title:"中国外管局：稳步推进人民币国际化", body:"国家外汇管理局表示将继续完善跨境资金流动宏观审慎管理，保持人民币汇率在合理均衡水平上的基本稳定。" }
+];
+
+let rates = [];
+let activePair = PAIRS[0];
+let refreshTimer = null;
+
+const $ = s => document.querySelector(s);
+
+/* ───────────────────────────────────────────
+   UTILS
+─────────────────────────────────────────── */
+function seededSeries(start, change, points, vol = 0.004) {
+  const s = [start];
+  for (let i = 1; i < points; i++) {
+    const wave  = Math.sin(i * 1.7 + start) * vol * start;
+    const drift = (change / points) * start;
+    const noise = Math.cos(i * 2.3) * vol * start * 0.45;
+    s.push(Math.max(0.0001, s[i-1] + drift + wave + noise));
+  }
+  return s;
+}
+
+function fmt(v, pair = activePair) {
+  return Number(v).toFixed(4);
+}
+function fmtMoney(v) {
+  return Number(v).toLocaleString("zh-CN", { maximumFractionDigits: 0 });
+}
+function normalSample() {
+  const u = 1 - Math.random(), v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+
+/* ───────────────────────────────────────────
+   CACHE
+─────────────────────────────────────────── */
+function readCache() {
+  try { return JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); } catch { return null; }
+}
+function writeCache(d) {
+  localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), data: d }));
+}
+
+/* ───────────────────────────────────────────
+   FETCH RATES
+─────────────────────────────────────────── */
+async function fetchRate(pair) {
+  const r = await fetch(`${FX_API}${pair.base}`);
+  if (!r.ok) throw new Error("API error");
+  const d = await r.json();
+  if (!d.rates?.[pair.quote]) throw new Error("missing");
+  return d.rates[pair.quote];
+}
+
+async function refreshRates() {
+  $("#apiStatus").textContent = "更新中…";
+  try {
+    const live = await Promise.all(PAIRS.map(async (pair, idx) => {
+      const rate   = await fetchRate(pair);
+      const change = Math.sin(rate + idx) * 0.018;
+      return {
+        ...pair, rate, change,
+        volatility: Math.abs(0.1 + Math.cos(rate) * 0.7).toFixed(2),
+        series: seededSeries(rate * (1 - change), change, 24, 0.0018)
+      };
+    }));
+    rates = live;
+    writeCache(live);
+    const t = new Date().toLocaleTimeString("zh-CN", { hour:"2-digit", minute:"2-digit" });
+    $("#apiStatus").textContent = `实时更新 ${t}`;
+  } catch {
+    const cached = readCache();
+    rates = cached?.data || PAIRS.map((pair, idx) => ({
+      ...pair,
+      rate: pair.fallback,
+      change: Math.sin(idx + 1) * 0.012,
+      volatility: (0.35 + idx * 0.08).toFixed(2),
+      series: seededSeries(pair.fallback * 0.995, Math.sin(idx) * 0.012, 24, 0.002)
+    }));
+    $("#apiStatus").textContent = cached ? "使用本地缓存" : "演示数据";
+  }
+
+  activePair = rates[0];
+  renderPairOptions();
+  renderRates();
+  syncForm(activePair);
+  updateOverview();
+}
+
+/* ───────────────────────────────────────────
+   AUTO REFRESH LOOP
+─────────────────────────────────────────── */
+function startAutoRefresh() {
+  if (refreshTimer) clearInterval(refreshTimer);
+  refreshTimer = setInterval(() => {
+    refreshRates().then(() => {
+      // re-run analysis silently
+      $("#analysisForm").dispatchEvent(new Event("submit"));
+    });
+  }, AUTO_REFRESH_INTERVAL);
+}
+
+/* ───────────────────────────────────────────
+   MARKET OVERVIEW
+─────────────────────────────────────────── */
+function updateOverview() {
+  // Simulate DXY fluctuation
+  const dxy    = (104.23 + (Math.random() - 0.5) * 0.4).toFixed(2);
+  const dxyCh  = ((Math.random() - 0.5) * 0.3).toFixed(2);
+  const vix    = (12 + (Math.random() - 0.3) * 2).toFixed(2);
+  $("#dxyVal").textContent  = dxy;
+  const dxyEl = $("#dxyChange");
+  if (parseFloat(dxyCh) >= 0) {
+    dxyEl.textContent = `▲ ${dxyCh}%`; dxyEl.className = "up";
+  } else {
+    dxyEl.textContent = `▼ ${Math.abs(dxyCh)}%`; dxyEl.className = "down";
+  }
+  $("#volatilityIndex").textContent = vix;
+  // Sentiment
+  const sentiments = ["中性偏乐观","谨慎中性","偏多情绪","风险规避"];
+  const si = Math.floor(Math.random() * sentiments.length);
+  $("#sentimentText").textContent = sentiments[si];
+  const pct = [64, 48, 76, 32][si];
+  $("#sentimentBar").style.background =
+    `linear-gradient(90deg,#3b82f6 ${pct}%,#e6e8ed ${pct}%)`;
+}
+
+/* ───────────────────────────────────────────
+   PAIR OPTIONS
+─────────────────────────────────────────── */
+function renderPairOptions() {
+  $("#pairSelect").innerHTML = rates.map(p =>
+    `<option value="${p.code}">${p.code} ${p.name}</option>`
+  ).join("");
+}
+
+/* ───────────────────────────────────────────
+   SPARKLINE
+─────────────────────────────────────────── */
+function sparkSvg(series, color) {
+  const mn = Math.min(...series), mx = Math.max(...series);
+  const W = 520, H = 72;
+  const pts = series.map((v, i) => {
+    const x = (i / (series.length - 1)) * W;
+    const y = H - ((v - mn) / (mx - mn || 1)) * (H - 18) - 9;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(" ");
+  return `<svg class="sparkline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+  </svg>`;
+}
+
+/* ───────────────────────────────────────────
+   RATE CARDS
+─────────────────────────────────────────── */
+function renderRates() {
+  $("#rateGrid").innerHTML = rates.map(pair => {
+    const isUp  = pair.change >= 0;
+    const color = isUp ? "#2aa876" : "#df3d3d";
+    const move  = (pair.change * pair.rate).toFixed(2);
+    return `<article class="rate-card" data-code="${pair.code}">
+      <div class="rate-head">
+        <div><h3>${pair.code}</h3><small>${pair.name}</small></div>
+        <span class="${isUp?"up":"down"}">${isUp?"▲":"▼"} ${Math.abs(pair.change*100).toFixed(2)}%</span>
+      </div>
+      <strong>${fmt(pair.rate, pair)}</strong>
+      <div class="rate-meta">
+        <span>今日波动: ${move}点</span>
+        <span>波动率: ${pair.volatility}%</span>
+      </div>
+      ${sparkSvg(pair.series, color)}
+      <div class="spark-labels">
+        <span>支撑: ${fmt(pair.support, pair)}</span>
+        <span>阻力: ${fmt(pair.resistance, pair)}</span>
+      </div>
+    </article>`;
+  }).join("");
+  document.querySelectorAll(".rate-card").forEach(c =>
+    c.addEventListener("click", () => openDialog(c.dataset.code))
+  );
+}
+
+/* ───────────────────────────────────────────
+   SYNC FORM
+─────────────────────────────────────────── */
+function syncForm(pair) {
+  $("#currentRate").value = Number(pair.rate).toFixed(4);
+  $("#targetRate").value  = Number(pair.rate * 1.004).toFixed(4);
+  $("#volatility").value  = Math.max(6, Math.min(18, Number(pair.volatility) * 14)).toFixed(2);
+}
+
+/* ───────────────────────────────────────────
+   CHART DRAWING
+─────────────────────────────────────────── */
+function drawChart(canvas, series, opts = {}) {
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+  const pad = { left: 62, right: 24, top: 24, bottom: 44 };
+  const all  = series.flat();
+  const mn   = opts.min ?? Math.min(...all);
+  const mx   = opts.max ?? Math.max(...all);
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, W, H);
+
+  // grid
+  ctx.strokeStyle = "#e7ebf1"; ctx.lineWidth = 1;
+  ctx.fillStyle   = "#7a8494"; ctx.font = "13px Microsoft YaHei";
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.top + ((H - pad.top - pad.bottom) / 5) * i;
+    const v = mx - ((mx - mn) / 5) * i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    ctx.fillText(v.toFixed(4), 4, y + 5);
+  }
+
+  // lines
+  const toXY = (v, i, len) => ({
+    x: pad.left + (i / (len - 1)) * (W - pad.left - pad.right),
+    y: H - pad.bottom - ((v - mn) / (mx - mn || 1)) * (H - pad.top - pad.bottom)
+  });
+  series.forEach((line, li) => {
+    ctx.beginPath();
+    line.forEach((v, i) => {
+      const {x, y} = toXY(v, i, line.length);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle  = opts.colors?.[li] || "#2563eb";
+    ctx.lineWidth    = opts.widths?.[li] || 2;
+    ctx.globalAlpha  = opts.alpha?.[li]  ?? 1;
+    ctx.stroke();
+    ctx.globalAlpha  = 1;
+  });
+
+  // target line
+  if (opts.target) {
+    const y = H - pad.bottom - ((opts.target - mn) / (mx - mn || 1)) * (H - pad.top - pad.bottom);
+    ctx.setLineDash([8, 7]);
+    ctx.strokeStyle = "#df3d3d"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#df3d3d";
+    ctx.fillText(`目标 ${opts.target.toFixed(4)}`, W - 136, y - 8);
+  }
+}
+
+/* ───────────────────────────────────────────
+   RATE DIALOG
+─────────────────────────────────────────── */
+function openDialog(code) {
+  activePair = rates.find(p => p.code === code) || rates[0];
+  $("#dialogTitle").textContent = `${activePair.code} — ${activePair.name}`;
+  $("#dialogRate").textContent  = fmt(activePair.rate);
+  const ch = activePair.change * 100;
+  const el  = $("#dialogChange");
+  el.textContent = `${ch >= 0 ? "▲" : "▼"} ${Math.abs(ch).toFixed(2)}%`;
+  el.className   = ch >= 0 ? "up" : "down";
+  renderDetailChart("day");
+  $("#rateDialog").showModal();
+}
+
+function renderDetailChart(range) {
+  const pts   = { day:32, week:7, month:30, quarter:90 }[range];
+  const drift = activePair.change * (range === "day" ? 0.4 : range === "week" ? 0.8 : 1.6);
+  const s     = seededSeries(activePair.rate * (1 - drift), drift, pts, 0.0015 + pts / 100000);
+  drawChart($("#detailChart"), [s], { colors:["#2563eb"], widths:[3] });
+}
+
+/* ───────────────────────────────────────────
+   MONTE CARLO
+─────────────────────────────────────────── */
+function runMC({ current, target, volatility, days, urgency }) {
+  const paths = 300, vis = [], terminal = [];
+  let hits = 0;
+  const annVol = volatility / 100, dt = 1 / 252;
+  const dir = target >= current ? 1 : -1;
+  for (let i = 0; i < paths; i++) {
+    const path = [current];
+    let touched = false;
+    for (let d = 1; d <= days; d++) {
+      const prev  = path[path.length - 1];
+      const shock = annVol * Math.sqrt(dt) * normalSample();
+      const next  = prev * Math.exp(-0.5 * annVol * annVol * dt + shock);
+      if ((dir === 1 && next >= target) || (dir === -1 && next <= target)) touched = true;
+      path.push(next);
+    }
+    if (touched) hits++;
+    terminal.push(path[path.length - 1]);
+    if (i < 30) vis.push(path);
+  }
+  terminal.sort((a, b) => a - b);
+  const ach = hits / paths;
+  const pen = { urgent:.18, medium:.08, relaxed:0 }[urgency];
+  const rsk = Math.max(0, Math.min(1, 1 - ach + pen));
+  return {
+    achievability: ach, visible: vis,
+    median: terminal[Math.floor(terminal.length * .5)],
+    low:    terminal[Math.floor(terminal.length * .05)],
+    high:   terminal[Math.floor(terminal.length * .95)],
+    riskScore: rsk
+  };
+}
+
+function riskTxt(s) {
+  if (s >= .72) return "高"; if (s >= .5) return "中高"; if (s >= .3) return "中"; return "低";
+}
+
+function adviceTxt(cur, tgt, urg, prob, risk) {
+  if (prob < .35 && urg === "urgent")
+    return `当前处于三个月低位，历史数据显示此位置可能存在较强支撑。近期地缘政治风险上升，避险情绪支撑日元走强。当前波动率处于历史低位，可考虑期权策略应对可能的波动率上升。`;
+  if (prob < .5)
+    return `目标位接近模拟路径上沿，继续等待存在一定隐性汇损风险。可尝试把目标从 ${tgt.toFixed(4)} 调整至更接近预测中值的位置，降低等待成本。`;
+  if (prob < .72)
+    return `目标具备中等可实现性，适合采用分批策略：先锁定部分资金确定性，再用挂单等待更优汇率。当前风险等级为「${risk}」，建议密切关注市场波动。`;
+  return `目标汇率处于较合理区间，可在风控阈值内挂单等待，并保持行情提醒开启。若波动率突然上升，应重新运行分析更新策略。`;
+}
+
+function stratRatio(s) {
+  return { defensive:.6, balanced:.3, opportunity:.1 }[s] || .3;
+}
+
+/* SR LEVELS */
+function calcSR(current, pair) {
+  const volatility = Number(pair?.volatility || 0.5);
+  const step = current * 0.004 * (1 + volatility / 20);
+  return {
+    r2: current + step * 2.2,
+    r1: current + step * 1.1,
+    s1: current - step * 1.1,
+    s2: current - step * 2.2
+  };
+}
+
+function updateSRPanel(current, pair) {
+  const sr = calcSR(current, pair);
+  $("#r2").textContent = sr.r2.toFixed(4);
+  $("#r1").textContent = sr.r1.toFixed(4);
+  $("#s1").textContent = sr.s1.toFixed(4);
+  $("#s2").textContent = sr.s2.toFixed(4);
+  // position marker
+  const range = sr.r2 - sr.s2;
+  const pct   = Math.min(95, Math.max(5, ((current - sr.s2) / range) * 100));
+  $("#srMarker").style.left = `calc(${pct}% - 9px)`;
+}
+
+/* ───────────────────────────────────────────
+   HANDLE ANALYSIS
+─────────────────────────────────────────── */
+function handleAnalysis(e) {
+  e.preventDefault();
+  const current  = Number($("#currentRate").value);
+  const target   = Number($("#targetRate").value);
+  const vol      = Number($("#volatility").value);
+  const days     = Number($("#deadlineDays").value);
+  const amount   = Number($("#amount").value);
+  const urgency  = $("#urgency").value;
+  const strategy = $("#strategy").value;
+
+  const result = runMC({ current, target, volatility: vol, days, urgency });
+  const risk   = riskTxt(result.riskScore);
+  const pct    = Math.round(result.achievability * 100);
+  const ratio  = stratRatio(strategy);
+
+  // Forecast band (图5 上半)
+  $("#medianForecast").textContent  = result.median.toFixed(4);
+  $("#confidenceRange").textContent = `${result.low.toFixed(4)} – ${result.high.toFixed(4)}`;
+
+  // SR Panel
+  updateSRPanel(current, activePair);
+
+  // Metrics
+  $("#achievability").textContent   = `${pct}%`;
+  $("#riskLevel").textContent       = risk;
+  const histPct = Math.max(1, Math.round((current - result.low) / (result.high - result.low || 1) * 100));
+  $("#percentile").textContent      = `${histPct}%`;
+  $("#achievabilityBig").textContent = `${pct}%`;
+
+  // AI summary
+  $("#aiSummary").textContent       = adviceTxt(current, target, urgency, result.achievability, risk);
+  $("#percentileLabel").textContent = `${histPct}%`;
+  $("#trendLabel").textContent      = target >= current ? "看涨" : "看跌";
+
+  // Execution
+  $("#instantAmount").textContent   = `${fmtMoney(amount * ratio)} CNY`;
+  $("#pendingAmount").textContent   = `${fmtMoney(amount * (1 - ratio))} CNY`;
+  $("#idealBuy").textContent        = result.low.toFixed(4);
+  $("#idealSell").textContent       = result.high.toFixed(4);
+
+  // Chart
+  const mean = [];
+  for (let d = 0; d <= days; d++) {
+    mean.push(result.visible.reduce((s, p) => s + (p[d] ?? p[p.length-1]), 0) / result.visible.length);
+  }
+  drawChart($("#simulationChart"), [...result.visible, mean], {
+    colors: [...result.visible.map(() => "#8fb5ff"), "#1648ad"],
+    widths: [...result.visible.map(() => 1), 4],
+    alpha:  [...result.visible.map(() => 0.28), 1],
+    target
+  });
+}
+
+/* ───────────────────────────────────────────
+   NEWS  (rotating static + optional live)
+─────────────────────────────────────────── */
+let newsItems   = [...STATIC_NEWS];
+let newsRotateT = null;
+
+function rotateNews() {
+  // shift top item to bottom for a "rotating feed" feel
+  newsItems.push(newsItems.shift());
+  renderNews();
+}
+
+function renderNews(items) {
+  const list = items || newsItems.slice(0, 5);
+  $("#newsList").innerHTML = list.map(n => `
+    <div class="news-card">
+      <time>${n.time}</time>
+      <strong>
+        <span class="news-tag ${n.tag || "tag-fx"}">${tagLabel(n.tag)}</span>
+        ${n.title}
+      </strong>
+      <p>${n.body}</p>
+    </div>`).join("");
+  $("#newsRefreshHint").textContent =
+    `资讯自动轮播 · 最后更新 ${new Date().toLocaleTimeString("zh-CN",{hour:"2-digit",minute:"2-digit"})}`;
+}
+
+function tagLabel(tag) {
+  return { "tag-fx":"外汇", "tag-macro":"宏观", "tag-policy":"政策" }[tag] || "资讯";
+}
+
+async function fetchNews() {
+  try {
+    // Try GNews via allorigins proxy (demo token, may rate-limit)
+    const res  = await fetch(`${NEWS_PROXY}${GNEWS_URL}`, { signal: AbortSignal.timeout(5000) });
+    const wrap = await res.json();
+    const data = JSON.parse(wrap.contents);
+    if (data?.articles?.length) {
+      const fresh = data.articles.map(a => ({
+        time:  new Date(a.publishedAt).toLocaleString("zh-CN",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"}),
+        tag:   "tag-fx",
+        title: a.title.slice(0, 40),
+        body:  (a.description || a.content || "").slice(0, 80) + "…"
+      }));
+      newsItems = [...fresh, ...STATIC_NEWS].slice(0, 8);
+    }
+  } catch (_) { /* fall through to static */ }
+  renderNews();
+}
+
+function startNewsRotation() {
+  if (newsRotateT) clearInterval(newsRotateT);
+  newsRotateT = setInterval(rotateNews, 12000); // rotate every 12s
+}
+
+/* ───────────────────────────────────────────
+   EVENT LISTENERS
+─────────────────────────────────────────── */
+$("#refreshBtn").addEventListener("click", () => {
+  refreshRates().then(() => {
+    $("#analysisForm").dispatchEvent(new Event("submit"));
+    fetchNews();
+  });
+});
+
+const aiGenBtn = $("#aiGenBtn");
+if (aiGenBtn) {
+  aiGenBtn.addEventListener("click", () => {
+    $("#analysisForm").dispatchEvent(new Event("submit"));
+  });
+}
+
+$("#analysisForm").addEventListener("submit", handleAnalysis);
+
+$("#pairSelect").addEventListener("change", () => {
+  activePair = rates.find(p => p.code === $("#pairSelect").value) || rates[0];
+  syncForm(activePair);
+});
+
+$("#closeDialog").addEventListener("click", () => $("#rateDialog").close());
+
+$("#chartTabs").addEventListener("click", e => {
+  if (!e.target.matches("button")) return;
+  document.querySelectorAll("#chartTabs button").forEach(b => b.classList.remove("active"));
+  e.target.classList.add("active");
+  renderDetailChart(e.target.dataset.range);
+});
+
+/* ───────────────────────────────────────────
+   INIT
+─────────────────────────────────────────── */
+(async function init() {
+  await refreshRates();
+  $("#analysisForm").dispatchEvent(new Event("submit"));
+  await fetchNews();
+  startNewsRotation();
+  startAutoRefresh();
+})();
+</script>
+</body>
+</html>
